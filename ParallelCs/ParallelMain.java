@@ -76,6 +76,8 @@ public class ParallelMain extends JFrame {
 		var cis = new JMenuItem("CIS Students in 2012");
 		var cisLong = new JMenuItem("CIS Students from 2012-2017");
 		file.add(marathon);
+		file.add(cis);
+		file.add(cisLong);
 
 		marathon.addActionListener(e -> {
 			Statement s;
@@ -101,7 +103,6 @@ public class ParallelMain extends JFrame {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-
 		});
 		menu.add(file);
 		return menu;
