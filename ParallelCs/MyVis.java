@@ -60,11 +60,6 @@ public class MyVis extends JPanel implements MouseListener, MouseMotionListener 
 		g.setColor(Color.BLUE);
 		g.draw(box);
 	}
-	
-	public void changeMessage(String m) {
-		message = m;
-		repaint();
-	}
 
 	public void setData(List<Double> nums, List<String> labels) {
 		this.nums = nums;
@@ -93,43 +88,18 @@ public class MyVis extends JPanel implements MouseListener, MouseMotionListener 
 	}
 
 	@Override
-	public void mouseReleased(MouseEvent e) {
-		int x = e.getX();
-		int y = e.getY();
-		System.out.println("Mouse up at (" + x + "," + y + ")");
-		double minX = box.getMinX();
-		double minY = box.getMinY();
-		//same for max x, y
-		//or use box.contains() ....
-		box = new Rectangle();
-		repaint();
-	}
+	public void mouseReleased(MouseEvent e) {}
+
+	@Override
+	public void mouseDragged(MouseEvent e) {}
+
+	@Override
+	public void mouseMoved(MouseEvent e) {}
 
 	@Override
 	public void mouseEntered(MouseEvent e) {}
 
 	@Override
 	public void mouseExited(MouseEvent e) {}
-
-	@Override
-	public void mouseDragged(MouseEvent e) {
-//		int x = e.getX();
-//		int y = e.getY();
-//		box.setFrameFromDiagonal(mouseDownPoint.x, mouseDownPoint.y, x, y);
-//		System.out.println("Mouse dragged at (" + x + "," + y + ")");
-//		repaint();
-	}
-
-	@Override
-	public void mouseMoved(MouseEvent e) {
-		int x = e.getX();
-		int y = e.getY();
-		//System.out.println("Mouse moved at (" + x + "," + y + ")");
-		//TODO...
-		//loop through all your "dot" objects, ask each one if
-		//the current mouse x,y is contained in it
-		//then break out of the loop
-		setToolTipText("Mouse is at " + x + "," + y);
-	}
 
 }

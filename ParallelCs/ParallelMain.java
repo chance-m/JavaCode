@@ -18,15 +18,15 @@ import javax.swing.JMenuItem;
 
 public class ParallelMain extends JFrame {
 
-	private MyVis ana;
+	private MyVis window;
 	private Connection conn;
 
 	public ParallelMain() {
-		ana = new MyVis();
-		setContentPane(ana);
+		window = new MyVis();
+		setContentPane(window);
 		setSize(800,600);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setTitle("My First CS 490R Program");
+		setTitle("Parallel Coordinates");
 		setJMenuBar(setupMenu());
 		setupDB();
 		setVisible(true);
@@ -47,7 +47,7 @@ public class ParallelMain extends JFrame {
 			}
 			rs.close();
 			s.close();
-			ana.setData(nums, labels);
+			window.setData(nums, labels);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -69,6 +69,7 @@ public class ParallelMain extends JFrame {
 		}
 	}
 
+	//Sets the menu bars and items. 
 	public JMenuBar setupMenu() {
 		var menu = new JMenuBar();
 		var file = new JMenu("Table");
@@ -92,6 +93,32 @@ public class ParallelMain extends JFrame {
 					System.out.println(chance);
 					//Here, I instantiate an Axis object, passing the
 					//column name and type to the constructor.
+					Axis ax = new Axis(rsmd.getColumnName(i), rsmd.getColumnTypeName(i));
+				}
+				while (rs.next()) {
+					/* for each axis, pass the result set object
+					 * to a "setter" method in the axis.
+					 The axis object pulls the data it needs from the ResultSet.
+					 */
+				}
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		});
+		
+		cis.addActionListener(e -> {
+			Statement s;
+			try {
+				s = conn.createStatement();
+				ResultSet rs = s.executeQuery("SELECT * FROM cis");
+				ResultSetMetaData rsmd = rs.getMetaData();
+				int n = rsmd.getColumnCount();
+				for (int i=1; i<=n; i++) {
+					String chance = rsmd.getColumnName(i) +
+							" " + rsmd.getColumnTypeName(i);
+					System.out.println(chance);
+					//Here, I instantiate an Axis object, passing the
+					//column name and type to the constructor.
 				}
 				while (rs.next()) {
 					/* for each axis, pass the result set object
@@ -104,6 +131,32 @@ public class ParallelMain extends JFrame {
 				e1.printStackTrace();
 			}
 		});
+		cisLong.addActionListener(e -> {
+			Statement s;
+			try {
+				s = conn.createStatement();
+				ResultSet rs = s.executeQuery("SELECT * FROM cisLong");
+				ResultSetMetaData rsmd = rs.getMetaData();
+				int n = rsmd.getColumnCount();
+				for (int i=1; i<=n; i++) {
+					String chance = rsmd.getColumnName(i) +
+							" " + rsmd.getColumnTypeName(i);
+					System.out.println(chance);
+					//Here, I instantiate an Axis object, passing the
+					//column name and type to the constructor.
+				}
+				while (rs.next()) {
+					/* for each axis, pass the result set object
+					 * to a "setter" method in the axis.
+					 The axis object pulls the data it needs from the ResultSet.
+					 */
+				}
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		});
+		
 		menu.add(file);
 		return menu;
 	}
