@@ -119,6 +119,7 @@ public class ParallelMain extends JFrame {
 					System.out.println(chance);
 					//Here, I instantiate an Axis object, passing the
 					//column name and type to the constructor.
+					Axis ax = new Axis(rsmd.getColumnName(i), rsmd.getColumnTypeName(i));
 				}
 				while (rs.next()) {
 					/* for each axis, pass the result set object
@@ -138,12 +139,14 @@ public class ParallelMain extends JFrame {
 				ResultSet rs = s.executeQuery("SELECT * FROM cisLong");
 				ResultSetMetaData rsmd = rs.getMetaData();
 				int n = rsmd.getColumnCount();
+				Axis ax;
 				for (int i=1; i<=n; i++) {
 					String chance = rsmd.getColumnName(i) +
 							" " + rsmd.getColumnTypeName(i);
 					System.out.println(chance);
 					//Here, I instantiate an Axis object, passing the
 					//column name and type to the constructor.
+					ax = new Axis(rsmd.getColumnName(i), rsmd.getColumnTypeName(i));
 				}
 				while (rs.next()) {
 					/* for each axis, pass the result set object
