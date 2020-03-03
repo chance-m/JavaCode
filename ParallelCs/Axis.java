@@ -1,47 +1,53 @@
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Axis {
 
 	private DataType dt;
-	List<String> numeric;
-	List<String> text;
-	private String name;
-	private String numType;
+	List<Double> numList;
+	List<String> textList;
+	List<Double> normalizedValues;
+	private String colName;
 
 	
 	public Axis(String name, String type) {
-		this.name = name;
-		numeric = new ArrayList<>();
-		text = new ArrayList<>();
-		
-		if(type.equals("varchar") || type.equals("char")) {
+		this.colName = name;
+		numList = new ArrayList<>();
+		textList = new ArrayList<>();
+		normalizedValues = new ArrayList<>();
+		if(type.equals("VARCHAR") || type.equals("CHAR")) {
 			dt = DataType.TEXTUAL;
 		} else {
 			dt = DataType.NUMERIC;
 		}
+		//System.out.println("I am " + dt + " data type");
 	}
-	
-	public void setAxisData() {
-		
-	}
+
 	
 	//@SuppressWarnings("unused")
-	public void fetchData(ResultSet rs) {
+	public void setData(ResultSet rs) {
 		try {
 			if (dt == DataType.TEXTUAL) {
-				text.add(rs.getString(name));
-				System.out.println("I am textual Data.");
+				textList.add(rs.getString(colName));
+				//System.out.println("I am textual Data.");
 			} else {
-				numeric.add(rs.getString(numType));
+				numList.add(rs.getDouble(colName));
+				//System.out.println("I am numerical Data. " );
 			}
-			//System.out.println(rs.getMetaData());
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}
-		
+		}	
 	}
+	
+	public double getMax() {
+		double maxVal;
+		maxVal = Collections.max(numList);
+		return maxVal;
+	}
+
 
 }

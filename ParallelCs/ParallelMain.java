@@ -8,6 +8,7 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.swing.JFileChooser;
@@ -21,6 +22,7 @@ public class ParallelMain extends JFrame {
 	private MyVis window;
 	private Connection conn;
 	private List<Axis> axisList;
+	private Axis ax;
 
 	public ParallelMain() {
 		window = new MyVis();
@@ -34,27 +36,27 @@ public class ParallelMain extends JFrame {
 		axisList = new ArrayList<>();
 	}
 
-	private void runQuery(String sql) {
-		try {
-			Statement s = conn.createStatement();
-			ResultSet rs = s.executeQuery(sql);
-			List<Double> nums = new ArrayList<>();
-			List<String> labels = new ArrayList<>();
-			while (rs.next()) {
-				double dexter = rs.getDouble(1);
-				String yijie = rs.getString(2);
-				nums.add(dexter);
-				labels.add(yijie);
-				System.out.println("There are " + dexter + " students in major " + yijie);
-			}
-			rs.close();
-			s.close();
-			window.setData(nums, labels);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+//	private void runQuery(String sql) {
+//		try {
+//			Statement s = conn.createStatement();
+//			ResultSet rs = s.executeQuery(sql);
+//			List<Double> nums = new ArrayList<>();
+//			List<String> labels = new ArrayList<>();
+//			while (rs.next()) {
+//				double dexter = rs.getDouble(1);
+//				String yijie = rs.getString(2);
+//				nums.add(dexter);
+//				labels.add(yijie);
+//				System.out.println("There are " + dexter + " students in major " + yijie);
+//			}
+//			rs.close();
+//			s.close();
+//			window.setData(nums, labels);
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//	}
 
 	/**
 	 * cis table: consists of two doubles
@@ -84,21 +86,24 @@ public class ParallelMain extends JFrame {
 
 		marathon.addActionListener(e -> {
 			queryAxis("SELECT * FROM marathon");
-			
+
+			System.out.println("This is the max VALUE: " + ax.getMax());
 		});
-		
+
 		cis.addActionListener(e -> {
 			queryAxis("SELECT * FROM cis");
+			System.out.println("This is the max VALUE: " + ax.getMax());
 		});
-		
+
 		cisLong.addActionListener(e -> {
 			queryAxis("SELECT * FROM cisLong");
+			System.out.println("This is the max VALUE: " + ax.getMax());
 		});
-		
+
 		menu.add(file);
 		return menu;
 	}
-	
+
 	public void queryAxis(String query) {
 		axisList.clear();
 		Statement s;
@@ -111,18 +116,20 @@ public class ParallelMain extends JFrame {
 				String chance = rsmd.getColumnName(i) +
 						" " + rsmd.getColumnTypeName(i);
 				System.out.println(chance);
-				//Here, I instantiate an Axis object, passing the
-				//column name and type to the constructor.
-				Axis ax = new Axis(rsmd.getColumnName(i), rsmd.getColumnTypeName(i));
+				ax = new Axis(rsmd.getColumnName(i), rsmd.getColumnTypeName(i));
 				axisList.add(ax);
-				ax.fetchData(rs);
 			}
 			while (rs.next()) {
 				/* for each axis, pass the result set object
 				 * to a "setter" method in the axis.
 				 The axis object pulls the data it needs from the ResultSet.
 				 */
+				for (Axis ax1 : axisList) {
+					ax1.setData(rs);
+					//System.out.println(ax1.toString());
+				}
 			}
+
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 		}
@@ -131,5 +138,7 @@ public class ParallelMain extends JFrame {
 	public static void main(String[] args) {
 		new ParallelMain();
 	}
+
+	//dyttp293
 
 }
