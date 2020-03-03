@@ -87,17 +87,17 @@ public class ParallelMain extends JFrame {
 		marathon.addActionListener(e -> {
 			queryAxis("SELECT * FROM marathon");
 
-			System.out.println("This is the max VALUE: " + ax.getMax());
+			//System.out.println("This is the max VALUE: " + ax.getMax());
 		});
 
 		cis.addActionListener(e -> {
 			queryAxis("SELECT * FROM cis");
-			System.out.println("This is the max VALUE: " + ax.getMax());
+			//System.out.println("This is the max VALUE: " + ax.getMax());
 		});
 
 		cisLong.addActionListener(e -> {
 			queryAxis("SELECT * FROM cisLong");
-			System.out.println("This is the max VALUE: " + ax.getMax());
+			//System.out.println("This is the max VALUE: " + ax.getMax());
 		});
 
 		menu.add(file);

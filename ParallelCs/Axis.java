@@ -24,7 +24,7 @@ public class Axis {
 		} else {
 			dt = DataType.NUMERIC;
 		}
-		//System.out.println("I am " + dt + " data type");
+		System.out.println("I am " + dt + " data type");
 	}
 
 	
@@ -43,11 +43,11 @@ public class Axis {
 		}	
 	}
 	
-	public double getMax() {
-		double maxVal;
-		maxVal = Collections.max(numList);
-		return maxVal;
-	}
+//	public double getMax() {
+//		double maxVal;
+//		maxVal = Collections.max(numList);
+//		return maxVal;
+//	}
 
 
 }
