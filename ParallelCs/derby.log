@@ -1,11 +1,11 @@
 ----------------------------------------------------------------
-Fri Feb 28 13:59:37 HST 2020:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-0170-8e3d-c3bc-00000f3849a8 
-on database directory C:\Users\Student\git\ParallelCs\ParallelCs\chanceDB with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@c387f44 
+Mon Mar 02 16:47:42 HST 2020:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-0170-9e4a-b8df-00000f308fa0 
+on database directory C:\Users\cisstudent\git\JavaCode\ParallelCs\chanceDB with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@c387f44 
 Loaded from file:/C:/Apache/lib/derby.jar
 java.vendor=Oracle Corporation
 java.runtime.version=12.0.2+10
-user.dir=C:\Users\Student\git\ParallelCs\ParallelCs
+user.dir=C:\Users\cisstudent\git\JavaCode\ParallelCs
 os.name=Windows 10
 os.arch=amd64
 os.version=10.0

@@ -20,6 +20,7 @@ public class ParallelMain extends JFrame {
 
 	private MyVis window;
 	private Connection conn;
+	private List<Axis> axisList;
 
 	public ParallelMain() {
 		window = new MyVis();
@@ -30,6 +31,7 @@ public class ParallelMain extends JFrame {
 		setJMenuBar(setupMenu());
 		setupDB();
 		setVisible(true);
+		axisList = new ArrayList<>();
 	}
 
 	private void runQuery(String sql) {
@@ -81,87 +83,49 @@ public class ParallelMain extends JFrame {
 		file.add(cisLong);
 
 		marathon.addActionListener(e -> {
-			Statement s;
-			try {
-				s = conn.createStatement();
-				ResultSet rs = s.executeQuery("SELECT * FROM marathon");
-				ResultSetMetaData rsmd = rs.getMetaData();
-				int n = rsmd.getColumnCount();
-				for (int i=1; i<=n; i++) {
-					String chance = rsmd.getColumnName(i) +
-							" " + rsmd.getColumnTypeName(i);
-					System.out.println(chance);
-					//Here, I instantiate an Axis object, passing the
-					//column name and type to the constructor.
-					Axis ax = new Axis(rsmd.getColumnName(i), rsmd.getColumnTypeName(i));
-				}
-				while (rs.next()) {
-					/* for each axis, pass the result set object
-					 * to a "setter" method in the axis.
-					 The axis object pulls the data it needs from the ResultSet.
-					 */
-				}
-			} catch (SQLException e1) {
-				e1.printStackTrace();
-			}
+			queryAxis("SELECT * FROM marathon");
+			
 		});
 		
 		cis.addActionListener(e -> {
-			Statement s;
-			try {
-				s = conn.createStatement();
-				ResultSet rs = s.executeQuery("SELECT * FROM cis");
-				ResultSetMetaData rsmd = rs.getMetaData();
-				int n = rsmd.getColumnCount();
-				for (int i=1; i<=n; i++) {
-					String chance = rsmd.getColumnName(i) +
-							" " + rsmd.getColumnTypeName(i);
-					System.out.println(chance);
-					//Here, I instantiate an Axis object, passing the
-					//column name and type to the constructor.
-					Axis ax = new Axis(rsmd.getColumnName(i), rsmd.getColumnTypeName(i));
-				}
-				while (rs.next()) {
-					/* for each axis, pass the result set object
-					 * to a "setter" method in the axis.
-					 The axis object pulls the data it needs from the ResultSet.
-					 */
-				}
-			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+			queryAxis("SELECT * FROM cis");
 		});
+		
 		cisLong.addActionListener(e -> {
-			Statement s;
-			try {
-				s = conn.createStatement();
-				ResultSet rs = s.executeQuery("SELECT * FROM cisLong");
-				ResultSetMetaData rsmd = rs.getMetaData();
-				int n = rsmd.getColumnCount();
-				Axis ax;
-				for (int i=1; i<=n; i++) {
-					String chance = rsmd.getColumnName(i) +
-							" " + rsmd.getColumnTypeName(i);
-					System.out.println(chance);
-					//Here, I instantiate an Axis object, passing the
-					//column name and type to the constructor.
-					ax = new Axis(rsmd.getColumnName(i), rsmd.getColumnTypeName(i));
-				}
-				while (rs.next()) {
-					/* for each axis, pass the result set object
-					 * to a "setter" method in the axis.
-					 The axis object pulls the data it needs from the ResultSet.
-					 */
-				}
-			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+			queryAxis("SELECT * FROM cisLong");
 		});
 		
 		menu.add(file);
 		return menu;
+	}
+	
+	public void queryAxis(String query) {
+		axisList.clear();
+		Statement s;
+		try {
+			s = conn.createStatement();
+			ResultSet rs = s.executeQuery(query);
+			ResultSetMetaData rsmd = rs.getMetaData();
+			int n = rsmd.getColumnCount();
+			for (int i=1; i<=n; i++) {
+				String chance = rsmd.getColumnName(i) +
+						" " + rsmd.getColumnTypeName(i);
+				System.out.println(chance);
+				//Here, I instantiate an Axis object, passing the
+				//column name and type to the constructor.
+				Axis ax = new Axis(rsmd.getColumnName(i), rsmd.getColumnTypeName(i));
+				axisList.add(ax);
+				ax.fetchData(rs);
+			}
+			while (rs.next()) {
+				/* for each axis, pass the result set object
+				 * to a "setter" method in the axis.
+				 The axis object pulls the data it needs from the ResultSet.
+				 */
+			}
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
 	}
 
 	public static void main(String[] args) {

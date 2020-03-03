@@ -83,7 +83,7 @@ public class MyVis extends JPanel implements MouseListener, MouseMotionListener 
 	public void mousePressed(MouseEvent e) {
 		int x = e.getX();
 		int y = e.getY();
-		System.out.println("Mouse down at (" + x + "," + y + ")");
+		//System.out.println("Mouse down at (" + x + "," + y + ")");
 		mouseDownPoint = new Point(x,y);
 	}
 

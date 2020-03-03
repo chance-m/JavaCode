@@ -6,9 +6,10 @@ import java.util.List;
 public class Axis {
 
 	private DataType dt;
-	List<Double> numeric;
+	List<String> numeric;
 	List<String> text;
 	private String name;
+	private String numType;
 
 	
 	public Axis(String name, String type) {
@@ -23,11 +24,24 @@ public class Axis {
 		}
 	}
 	
-	private void fetchData(ResultSet rs) throws SQLException {
-		if (dt == DataType.TEXTUAL) {
-			text.add(rs.getString(name));
-		} else {
-			numeric.add(rs.getDouble(name));
-		}
+	public void setAxisData() {
+		
 	}
+	
+	//@SuppressWarnings("unused")
+	public void fetchData(ResultSet rs) {
+		try {
+			if (dt == DataType.TEXTUAL) {
+				text.add(rs.getString(name));
+				System.out.println("I am textual Data.");
+			} else {
+				numeric.add(rs.getString(numType));
+			}
+			//System.out.println(rs.getMetaData());
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+	}
+
 }
