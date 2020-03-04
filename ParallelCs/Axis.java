@@ -10,8 +10,7 @@ public class Axis {
 	private DataType dt;
 	private List<Double> numList;
 	private List<String> textList;
-	private List<Double> numNormalizedValues;
-	private List<Double> normalizedStrings;
+	private List<Double> normalizedValues;
 	private String colName;
 	private double normalized;
 
@@ -24,8 +23,7 @@ public class Axis {
 		this.colName = name;
 		numList = new ArrayList<>();
 		textList = new ArrayList<>();
-		numNormalizedValues = new ArrayList<>();
-		normalizedStrings = new ArrayList<>();
+		normalizedValues = new ArrayList<>();
 		
 		normalized = 0;
 		if(type.equals("VARCHAR") || type.equals("CHAR")) {
@@ -63,25 +61,25 @@ public class Axis {
 			maxVal = Collections.max(numList);
 			for (int i = 0; i < numList.size(); i++) {
 				normalized = numList.get(((int)i))/maxVal;
-				numNormalizedValues.add(normalized);
+				normalizedValues.add(normalized);
 			}
 		} else {
 			for(String s : textList) {
 				if (!temp.contains(s)) {
 					double normalized2;
 					temp.add(s);
-					//count += 1;
 					normalized2 = (1.0/(temp.size()+1));
+					normalizedValues.add(normalized2);
 					System.out.println("This is normalized: " + normalized2);
 				}
 			}
 		}
-		for (double d : numNormalizedValues) {
-			//System.out.println("Normalized INT Value: " + d);
-		}
-		for (String s : temp) {
-			//System.out.println("Distinct strings: " + s + " This is the size: " + temp.size());
-		}
+//		for (double d : normalizedValues) {
+//			System.out.println("Normalized INT Value: " + d);
+//		}
+//		for (String s : temp) {
+//			System.out.println("Distinct strings: " + s + " This is the size: " + temp.size());
+//		}
 		
 	}
 
