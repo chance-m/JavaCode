@@ -15,14 +15,18 @@ public class Axis {
 	private String colName;
 	private double normalized;
 
-	
+	/**
+	 * constructor takes the name of the column and the data type of the column
+	 * @param name
+	 * @param type
+	 */
 	public Axis(String name, String type) {
 		this.colName = name;
 		numList = new ArrayList<>();
 		textList = new ArrayList<>();
 		numNormalizedValues = new ArrayList<>();
-		
 		normalizedStrings = new ArrayList<>();
+		
 		normalized = 0;
 		if(type.equals("VARCHAR") || type.equals("CHAR")) {
 			dt = DataType.TEXTUAL;
@@ -32,6 +36,10 @@ public class Axis {
 		//System.out.println("I am " + dt + " data type");
 	}
 
+	/**
+	 * pulls data from result set and adds the result to a specific list
+	 * @param rs
+	 */
 	public void setData(ResultSet rs) {
 		try {
 			if (dt == DataType.TEXTUAL) {
@@ -44,7 +52,12 @@ public class Axis {
 		}	
 	}
 	
+	/**
+	 * Populates the normalized arraylists
+	 */
 	public void axisNorms() {
+		//int count = 1;
+		List<String> temp = new ArrayList<>();
 		if (dt == DataType.NUMERIC) {
 			double maxVal;
 			maxVal = Collections.max(numList);
@@ -52,11 +65,22 @@ public class Axis {
 				normalized = numList.get(((int)i))/maxVal;
 				numNormalizedValues.add(normalized);
 			}
-		} /*else {
-			
-		}*/
+		} else {
+			for(String s : textList) {
+				if (!temp.contains(s)) {
+					double normalized2;
+					temp.add(s);
+					//count += 1;
+					normalized2 = (1.0/(temp.size()+1));
+					System.out.println("This is normalized: " + normalized2);
+				}
+			}
+		}
 		for (double d : numNormalizedValues) {
-			System.out.println("Normalized Value: " + d);
+			//System.out.println("Normalized INT Value: " + d);
+		}
+		for (String s : temp) {
+			//System.out.println("Distinct strings: " + s + " This is the size: " + temp.size());
 		}
 		
 	}

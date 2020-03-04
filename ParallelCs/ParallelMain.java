@@ -36,28 +36,6 @@ public class ParallelMain extends JFrame {
 		axisList = new ArrayList<>();
 	}
 
-//	private void runQuery(String sql) {
-//		try {
-//			Statement s = conn.createStatement();
-//			ResultSet rs = s.executeQuery(sql);
-//			List<Double> nums = new ArrayList<>();
-//			List<String> labels = new ArrayList<>();
-//			while (rs.next()) {
-//				double dexter = rs.getDouble(1);
-//				String yijie = rs.getString(2);
-//				nums.add(dexter);
-//				labels.add(yijie);
-//				System.out.println("There are " + dexter + " students in major " + yijie);
-//			}
-//			rs.close();
-//			s.close();
-//			window.setData(nums, labels);
-//		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//	}
-
 	/**
 	 * cis table: consists of two doubles
 	 * cisLong table: consists of student data
@@ -104,6 +82,10 @@ public class ParallelMain extends JFrame {
 		return menu;
 	}
 
+	/**
+	 * gets the meta data of the query by passing in an sql query
+	 * @param query
+	 */
 	public void queryAxis(String query) {
 		axisList.clear();
 		Statement s;

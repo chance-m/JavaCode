@@ -34,6 +34,7 @@ public class MyVis extends JPanel implements MouseListener, MouseMotionListener 
 		transparentGreen = new Color(0,255,0,50);
 	}
 	
+	//draws the axis
 	@Override
 	public void paintComponent(Graphics g1) {
 		Graphics2D g = (Graphics2D)g1;
