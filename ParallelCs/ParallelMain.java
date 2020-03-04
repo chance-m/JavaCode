@@ -120,18 +120,17 @@ public class ParallelMain extends JFrame {
 				axisList.add(ax);
 			}
 			while (rs.next()) {
-				/* for each axis, pass the result set object
-				 * to a "setter" method in the axis.
-				 The axis object pulls the data it needs from the ResultSet.
-				 */
 				for (Axis ax1 : axisList) {
 					ax1.setData(rs);
-					//System.out.println(ax1.toString());
 				}
 			}
 
 		} catch (SQLException e1) {
 			e1.printStackTrace();
+		}
+		
+		for(Axis a : axisList) {
+			a.axisNorms();
 		}
 	}
 
