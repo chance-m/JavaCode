@@ -13,6 +13,7 @@ public class Axis {
 	private List<Double> normalizedValues;
 	private String colName;
 	private double normalized;
+	private HyrumPolyline line;
 
 	/**
 	 * constructor takes the name of the column and the data type of the column
@@ -80,6 +81,16 @@ public class Axis {
 //		}
 		
 	}
+	
+//	public void drawAxis() {
+//		for (int i = 0; i < normalizedValues.size(); i++) {
+//			line = new HyrumPolyline();
+//			for(Axis a : ParallelMain.axisList) {
+//				
+//			}
+//		}
+//	}
+	
 	public void printNormal() {
 		for (double s : normalizedValues) {
 			System.out.println("Printing normalized vals: " + s);

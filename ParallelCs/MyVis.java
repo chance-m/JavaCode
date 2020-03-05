@@ -21,7 +21,6 @@ public class MyVis extends JPanel implements MouseListener, MouseMotionListener 
 	private Rectangle box;
 	private Point mouseDownPoint;
 	private Color transparentGreen;
-	private HyrumPolyline line;
 	private int axSize;
 	
 	public MyVis() {
@@ -33,7 +32,6 @@ public class MyVis extends JPanel implements MouseListener, MouseMotionListener 
 		addMouseMotionListener(this);
 		box = new Rectangle();
 		transparentGreen = new Color(0,255,0,50);
-		line = new HyrumPolyline();
 	}
 	
 	//draws the axis
@@ -64,6 +62,15 @@ public class MyVis extends JPanel implements MouseListener, MouseMotionListener 
 //		g.draw(box);
 //		g.setColor(Color.black);
 //		g.drawString("" +  axSize, 50, 200);
+		g.setColor(Color.black);
+		int width = getWidth();
+		int height = getHeight();
+		int axLine = width/((axSize+1));
+		int next = axLine;
+		for (int i = 0; i <= axSize; i++) {
+			g.drawLine(next, 0, next, height);
+			next += axLine;
+		}
 	}
 
 //	public void setData(List<Double> nums, List<String> labels) {

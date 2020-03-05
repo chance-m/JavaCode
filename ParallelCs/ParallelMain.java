@@ -21,7 +21,7 @@ public class ParallelMain extends JFrame {
 
 	private MyVis window;
 	private Connection conn;
-	private List<Axis> axisList;
+	List<Axis> axisList;
 	private Axis ax;
 
 	public ParallelMain() {
