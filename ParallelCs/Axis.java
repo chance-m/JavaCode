@@ -33,7 +33,6 @@ public class Axis {
 		}
 		//System.out.println("I am " + dt + " data type");
 	}
-
 	/**
 	 * pulls data from result set and adds the result to a specific list
 	 * @param rs
@@ -49,7 +48,6 @@ public class Axis {
 			e.printStackTrace();
 		}	
 	}
-	
 	/**
 	 * Populates the normalized arraylists
 	 */
@@ -70,7 +68,7 @@ public class Axis {
 					temp.add(s);
 					normalized2 = (1.0/(temp.size()+1));
 					normalizedValues.add(normalized2);
-					System.out.println("This is normalized: " + normalized2);
+					//System.out.println("This is normalized: " + normalized2);
 				}
 			}
 		}
@@ -82,7 +80,6 @@ public class Axis {
 //		}
 		
 	}
-	
 	public void printNormal() {
 		for (double s : normalizedValues) {
 			System.out.println("Printing normalized vals: " + s);

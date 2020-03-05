@@ -35,7 +35,6 @@ public class ParallelMain extends JFrame {
 		setVisible(true);
 		axisList = new ArrayList<>();
 	}
-
 	/**
 	 * cis table: consists of two doubles
 	 * cisLong table: consists of student data
@@ -50,7 +49,6 @@ public class ParallelMain extends JFrame {
 			e.printStackTrace();
 		}
 	}
-
 	//Sets the menu bars and items. 
 	public JMenuBar setupMenu() {
 		var menu = new JMenuBar();
@@ -83,7 +81,6 @@ public class ParallelMain extends JFrame {
 		menu.add(file);
 		return menu;
 	}
-
 	/**
 	 * gets the meta data of the query by passing in an sql query
 	 * @param query
@@ -103,12 +100,12 @@ public class ParallelMain extends JFrame {
 				ax = new Axis(rsmd.getColumnName(i), rsmd.getColumnTypeName(i));
 				axisList.add(ax);
 			}
+			window.getAxisSize(axisList.size());
 			while (rs.next()) {
 				for (Axis ax1 : axisList) {
 					ax1.setData(rs);
 				}
 			}
-
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 		}
@@ -116,12 +113,13 @@ public class ParallelMain extends JFrame {
 		for(Axis a : axisList) {
 			a.axisNorms();
 		}
-		
-		
 	}
-
 	public static void main(String[] args) {
 		new ParallelMain();
+	}
+	
+	public int getAxisSize() {
+		return axisList.size();
 	}
 
 	//dyttp293

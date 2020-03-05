@@ -21,11 +21,11 @@ public class MyVis extends JPanel implements MouseListener, MouseMotionListener 
 	private Rectangle box;
 	private Point mouseDownPoint;
 	private Color transparentGreen;
-	//private List<PolyLine> pol; 
+	private HyrumPolyline line;
+	private int axSize;
 	
 	public MyVis() {
 		super();
-		message = "CS490R is my favorite class!";
 		nums = new ArrayList<>();
 		labels = new ArrayList<>();
 		relative = new ArrayList<>();
@@ -33,6 +33,7 @@ public class MyVis extends JPanel implements MouseListener, MouseMotionListener 
 		addMouseMotionListener(this);
 		box = new Rectangle();
 		transparentGreen = new Color(0,255,0,50);
+		line = new HyrumPolyline();
 	}
 	
 	//draws the axis
@@ -45,38 +46,46 @@ public class MyVis extends JPanel implements MouseListener, MouseMotionListener 
 //		}
 		g.setColor(Color.WHITE);
 		g.fillRect(0, 0, getWidth(), getHeight());
-		
-		int n = relative.size();
-		int spacing = getHeight() / (n+1);
-		int y = spacing;
-		g.setColor(Color.BLACK);
-		for (int i=0; i<n; i++) {
-			int barLength = (int)(getWidth() * relative.get(i));
-			g.drawLine(0, y, barLength, y);
-			g.drawString(labels.get(i), 0, y);
-			y += spacing;
-		}
-		
-		g.setColor(transparentGreen);
-		g.fill(box);
-		g.setColor(Color.BLUE);
-		g.draw(box);
+	
+//		int n = relative.size();
+//		int spacing = getHeight() / (n+1);
+//		int y = spacing;
+//		g.setColor(Color.BLACK);
+//		for (int i=0; i<n; i++) {
+//			int barLength = (int)(getWidth() * relative.get(i));
+//			g.drawLine(0, y, barLength, y);
+//			g.drawString(labels.get(i), 0, y);
+//			y += spacing;
+//		}
+//		
+//		g.setColor(transparentGreen);
+//		g.fill(box);
+//		g.setColor(Color.BLUE);
+//		g.draw(box);
+//		g.setColor(Color.black);
+//		g.drawString("" +  axSize, 50, 200);
 	}
 
-	public void setData(List<Double> nums, List<String> labels) {
-		this.nums = nums;
-		this.labels = labels;
-		double max = -1;
-		for (var n : nums) {
-			if (n > max) {
-				max = n;
-			}
-		}
-		for (int i=0; i<nums.size(); i++) {
-			relative.add(nums.get(i) / max);
-		}
+//	public void setData(List<Double> nums, List<String> labels) {
+//		this.nums = nums;
+//		this.labels = labels;
+//		double max = -1;
+//		for (var n : nums) {
+//			if (n > max) {
+//				max = n;
+//			}
+//		}
+//		for (int i=0; i<nums.size(); i++) {
+//			relative.add(nums.get(i) / max);
+//		}
+//		repaint();
+//	}
+	
+	public void getAxisSize(int i) {
+		axSize = i;
 		repaint();
 	}
+	
 
 	@Override
 	public void mouseClicked(MouseEvent e) {}
