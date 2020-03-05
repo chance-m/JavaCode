@@ -64,17 +64,19 @@ public class ParallelMain extends JFrame {
 
 		marathon.addActionListener(e -> {
 			queryAxis("SELECT * FROM marathon");
-
+			
 			//System.out.println("This is the max VALUE: " + ax.getMax());
 		});
 
 		cis.addActionListener(e -> {
 			queryAxis("SELECT * FROM cis");
+			//ax.printNormal();
 			//System.out.println("This is the max VALUE: " + ax.getMax());
 		});
 
 		cisLong.addActionListener(e -> {
 			queryAxis("SELECT * FROM cisLong");
+			//ax.printNormal();
 			//System.out.println("This is the max VALUE: " + ax.getMax());
 		});
 
@@ -114,6 +116,8 @@ public class ParallelMain extends JFrame {
 		for(Axis a : axisList) {
 			a.axisNorms();
 		}
+		
+		
 	}
 
 	public static void main(String[] args) {

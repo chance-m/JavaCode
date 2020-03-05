@@ -60,7 +60,7 @@ public class Axis {
 			double maxVal;
 			maxVal = Collections.max(numList);
 			for (int i = 0; i < numList.size(); i++) {
-				normalized = numList.get(((int)i))/maxVal;
+				normalized = numList.get((int)i)/maxVal;
 				normalizedValues.add(normalized);
 			}
 		} else {
@@ -81,6 +81,12 @@ public class Axis {
 //			System.out.println("Distinct strings: " + s + " This is the size: " + temp.size());
 //		}
 		
+	}
+	
+	public void printNormal() {
+		for (double s : normalizedValues) {
+			System.out.println("Printing normalized vals: " + s);
+		}
 	}
 
 

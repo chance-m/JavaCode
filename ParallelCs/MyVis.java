@@ -21,6 +21,7 @@ public class MyVis extends JPanel implements MouseListener, MouseMotionListener 
 	private Rectangle box;
 	private Point mouseDownPoint;
 	private Color transparentGreen;
+	//private List<PolyLine> pol; 
 	
 	public MyVis() {
 		super();
