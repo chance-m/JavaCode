@@ -71,6 +71,23 @@ public class MyVis extends JPanel implements MouseListener, MouseMotionListener 
 			g.drawLine(next, 0, next, height);
 			next += axLine;
 		}
+		
+		var axList = ParallelMain.axisList;
+		for(double i = 0; i < axList.size(); i++) {
+			//System.out.println("TEST: " + axList.get((int)i.getNormalizedValsAt(i)));
+			var ax = axList.get((int) i);
+			//System.out.println("TEST; " + ax.getNormValsAt(i));
+		}
+//		if (Axis.isEmpty() == false) {
+//			Axis.drawAxis(height, axLine, g);
+//		}
+		
+		
+		for (Axis a : axList) {
+			a.drawAxis(g);
+			System.out.println("TEST: " + axList.size());
+		}
+			
 	}
 
 //	public void setData(List<Double> nums, List<String> labels) {

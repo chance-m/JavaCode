@@ -21,7 +21,7 @@ public class ParallelMain extends JFrame {
 
 	private MyVis window;
 	private Connection conn;
-	List<Axis> axisList;
+	static List<Axis> axisList;
 	private Axis ax;
 
 	public ParallelMain() {
@@ -62,7 +62,7 @@ public class ParallelMain extends JFrame {
 
 		marathon.addActionListener(e -> {
 			queryAxis("SELECT * FROM marathon");
-			
+			//ax.printNormal();
 			//System.out.println("This is the max VALUE: " + ax.getMax());
 		});
 
