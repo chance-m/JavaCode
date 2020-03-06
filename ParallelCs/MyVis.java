@@ -82,10 +82,9 @@ public class MyVis extends JPanel implements MouseListener, MouseMotionListener 
 //			Axis.drawAxis(height, axLine, g);
 //		}
 		
-		
 		for (Axis a : axList) {
-			a.drawAxis(g);
-			System.out.println("TEST: " + axList.size());
+			a.drawAxis2(g, ParallelMain.getCounter());
+			//System.out.println("TEST : " + axList.size());
 		}
 			
 	}

@@ -18,6 +18,7 @@ public class Axis extends JPanel {
 	private String colName;
 	private double normalized;
 	private static HyrumPolyline line;
+	private List<HyrumPolyline> lines;
 
 	/**
 	 * constructor takes the name of the column and the data type of the column
@@ -29,7 +30,7 @@ public class Axis extends JPanel {
 		numList = new ArrayList<>();
 		textList = new ArrayList<>();
 		normalizedValues = new ArrayList<>();
-
+		lines = new ArrayList<>();
 		normalized = 0;
 		if(type.equals("VARCHAR") || type.equals("CHAR")) {
 			dt = DataType.TEXTUAL;
@@ -86,26 +87,64 @@ public class Axis extends JPanel {
 
 	}
 
+	/**
+	 * Draws the axis
+	 * @param g
+	 */
 	public void drawAxis(Graphics g) {
-		int val = 0;
+		lines.clear();
+		double val = 0.0;
 		int x = getWidth();
-		int y = 0;
+		double y = 0;
 		int h = getHeight();
-		int axLine;
+		int axLine = 0;
 		for (int i = 0; i < normalizedValues.size(); i++) {
 			line = new HyrumPolyline();
 			for(Axis a : ParallelMain.axisList) {
-				val = (int) a.getNormValsAt(i);
-				y = h - (h*val);
+				
+				y = (h - (h*val));
 				axLine = x/((ParallelMain.axisList.size()+1));
-				line.addPoint((double)x,(double)y);
+				line.addPoint((double)axLine,(double)y);
+				line.addPoint((double)axLine+50,(double)y+50);
 				axLine += axLine;
-				line.draw((Graphics2D) g);
 			}
+			line.draw((Graphics2D) g);
+//			line.addPoint(500.1, 200.1);
+//			line.draw((Graphics2D) g);
 		}
-
+		repaint();
 	}
-
+	
+	public void drawAxis2(Graphics g, int counter) {
+		//lines.clear();
+		double val = 0.0;
+		int width = getWidth();
+		double y = 0;
+		double x = 0;
+		int h = getHeight();
+		double axLine = x/(ParallelMain.axisList.size()+1);
+		double seg = axLine;
+		for (int i= 0; i < counter; i++) {
+			line = new HyrumPolyline();
+			for (int j = 0; j < ParallelMain.axisList.size(); j++) {
+				val = ParallelMain.axisList.get(j).getNormValsAt(i);
+				y = (h - (h*val));
+				//axLine = width/((ParallelMain.axisList.size()+1));
+				//x = 
+				//axLine += axLine;
+				line.addPoint((double) axLine, y);
+				//line.addPoint(100.0, 100.0);
+			}
+			lines.add(line);
+			//seg += axLine;
+		}
+		
+		for (HyrumPolyline p : lines) {
+			p.draw((Graphics2D) g);
+			//System.out.println("This prints a polyline");
+		}
+	}
+	//returns normalized values
 	public double getNormValsAt(double i) {
 		return normalizedValues.get((int) i);
 	}

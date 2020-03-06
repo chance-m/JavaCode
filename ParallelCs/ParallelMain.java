@@ -23,6 +23,7 @@ public class ParallelMain extends JFrame {
 	private Connection conn;
 	static List<Axis> axisList;
 	private Axis ax;
+	private static int counter;
 
 	public ParallelMain() {
 		window = new MyVis();
@@ -34,6 +35,7 @@ public class ParallelMain extends JFrame {
 		setupDB();
 		setVisible(true);
 		axisList = new ArrayList<>();
+		counter = 0;
 	}
 	/**
 	 * cis table: consists of two doubles
@@ -88,6 +90,7 @@ public class ParallelMain extends JFrame {
 	public void queryAxis(String query) {
 		axisList.clear();
 		Statement s;
+		counter = 0;
 		try {
 			s = conn.createStatement();
 			ResultSet rs = s.executeQuery(query);
@@ -100,18 +103,24 @@ public class ParallelMain extends JFrame {
 				ax = new Axis(rsmd.getColumnName(i), rsmd.getColumnTypeName(i));
 				axisList.add(ax);
 			}
+			
 			window.getAxisSize(axisList.size());
 			while (rs.next()) {
 				for (Axis ax1 : axisList) {
 					ax1.setData(rs);
+					
 				}
+				counter += 1;
+				
 			}
+			System.out.println("This is count: " + counter);
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 		}
 		
 		for(Axis a : axisList) {
 			a.axisNorms();
+			//a.drawAxis(g);
 		}
 	}
 	public static void main(String[] args) {
@@ -120,6 +129,9 @@ public class ParallelMain extends JFrame {
 	
 	public int getAxisSize() {
 		return axisList.size();
+	}
+	public static int getCounter() {
+		return counter;
 	}
 
 	//dyttp293
