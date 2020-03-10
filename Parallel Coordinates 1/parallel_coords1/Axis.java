@@ -23,7 +23,8 @@ public class Axis {
 	List<String> yLabels;
 	private enum DataType {
 		TEXT,
-		NUMERIC
+		NUMERIC, 
+
 	}
 	private DataType dataType;
 

@@ -35,11 +35,13 @@ public class HyrumPolyline {
 	private GeneralPath polygon;
 	private List<Point2D> points;
 	public boolean selected;
+	public LineSelector select;
 
 	public HyrumPolyline() {
 		polygon = new GeneralPath(GeneralPath.WIND_EVEN_ODD);
 		points = new ArrayList<Point2D>();
 		selected = true;
+		select = LineSelector.DEFAULT;
 	}
 
 	public HyrumPolyline(HyrumPolyline hp) {

@@ -62,6 +62,8 @@ public class Main extends JFrame implements ActionListener {
 		JMenuItem marathon = new JMenuItem("Marathon");
 		JMenuItem cis = new JMenuItem("CIS Students 2007 - 2012");
 		JMenuItem cis2012 = new JMenuItem("CIS Students in 2012");
+		JMenuItem reset = new JMenuItem("Reset");
+		
 
 		//setup action listeners
 		marathon.setActionCommand("marathon");
@@ -70,11 +72,15 @@ public class Main extends JFrame implements ActionListener {
 		marathon.addActionListener(this);
 		cis.addActionListener(this);
 		cis2012.addActionListener(this);
+		reset.addActionListener(e -> {
+			mainPanel.reset();
+		});
 
 		//now hook them all together
 		fileMenu.add(marathon);
 		fileMenu.add(cis);
 		fileMenu.add(cis2012);
+		fileMenu.add(reset);
 
 		menuBar.add(fileMenu);
 		return menuBar;
