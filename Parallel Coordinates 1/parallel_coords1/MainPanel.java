@@ -123,14 +123,20 @@ public class MainPanel extends JPanel implements MouseListener, MouseMotionListe
 				}
 			}
 			
-			if (p.highLighted == true) {
+//			if (p.highLighted == true) {
+//				g.setStroke(new BasicStroke(10));
+//				g.setColor(Color.cyan);
+//				p.draw(g);
+//				System.out.println("I AM MAKING LINES THICC");
+//			} else {
+//				g.setColor(Color.black);
+//				g.setStroke(new BasicStroke(0));
+//			}
+			if ((p.select == LineSelector.DEFAULT && p.selected == true) || p.select == LineSelector.SELECTED) {
 				g.setStroke(new BasicStroke(10));
 				g.setColor(Color.cyan);
 				p.draw(g);
 				System.out.println("I AM MAKING LINES THICC");
-			} else {
-				g.setColor(Color.black);
-				g.setStroke(new BasicStroke(0));
 			}
 		}
 		if (axes != null) {
