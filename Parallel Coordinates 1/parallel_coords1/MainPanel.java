@@ -32,6 +32,9 @@ public class MainPanel extends JPanel implements MouseListener, MouseMotionListe
 	private Color transparentGreen;
 	private Color transparentBlack;
 	private boolean lineSwitch;
+	double x1, x2, y1, y2;
+	double lineX1, lineX2, lineY1, lineY2;
+	
 
 	public MainPanel() {
 		super();
@@ -43,6 +46,7 @@ public class MainPanel extends JPanel implements MouseListener, MouseMotionListe
 		box = new Rectangle();
 		transparentGreen = new Color(0,255,0,50);
 		transparentBlack = new Color(0,0,0,(int) 0.4);
+		setLinePoints();
 	}
 
 	public void setAxes(List<Axis> ax, int count) {
@@ -95,16 +99,30 @@ public class MainPanel extends JPanel implements MouseListener, MouseMotionListe
 
 		
 		for (HyrumPolyline p : lines) {
-			if (p.select == LineSelector.DEFAULT || p.select == LineSelector.SELECTED
+			if (p.select == LineSelector.DEFAULT 
 					) {
 				g.setColor(Color.BLACK);
 				p.draw(g);
-			} else if(p.select == LineSelector.UNSELECTED) {
-				g.setColor(Color.LIGHT_GRAY);
-				p.draw(g);
-			} else if (p.select == LineSelector.SELECTED){
-				g.setColor(Color.BLACK);
-				p.draw(g);
+			} else if(p.select == LineSelector.SELECTED) {
+				if(lineSwitch == false) {
+					g.setColor(Color.magenta);
+					p.draw(g);
+				} else {
+					g.setColor(Color.black);
+					p.draw(g);
+				}
+				
+			} else if (p.select == LineSelector.UNSELECTED) {
+				if (lineSwitch == true) {
+					g.setColor(Color.lightGray);
+					p.draw(g);
+				} else {
+					g.setColor(Color.black);
+					p.draw(g);
+				}
+//				g.setColor(Color.magenta);
+//				p.draw(g);
+				
 			}
 		}
 		if (axes != null) {
@@ -130,11 +148,22 @@ public class MainPanel extends JPanel implements MouseListener, MouseMotionListe
 		int y = e.getY();
 		//System.out.println("Mouse down at (" + x + "," + y + ")");
 		mouseDownPoint = new Point(x,y);
-		switcher(true);
+		switcher(false);
 		
 	}
 	private void switcher(boolean b) {
 		lineSwitch = b;
+	}
+	
+	public void setLinePoints() {
+		for (HyrumPolyline p : lines) {
+			for(int i = 1; i < p.getNumPoints(); i++) {
+				lineX1 = p.getPointAt(i).getX();
+				lineY1 = p.getPointAt(i).getY();
+				lineX2 = p.getPointAt(i-1).getX();
+				lineY2 = p.getPointAt(i-1).getY();
+			}
+		}
 	}
 
 	@Override
@@ -147,6 +176,7 @@ public class MainPanel extends JPanel implements MouseListener, MouseMotionListe
 		//same for max x, y
 		//or use box.contains() ....
 		box = new Rectangle();
+		switcher(true);
 		repaint();
 	}
 	
@@ -173,10 +203,10 @@ public class MainPanel extends JPanel implements MouseListener, MouseMotionListe
 		//System.out.println("Mouse dragged at (" + x + "," + y + ")");
 		for (HyrumPolyline p : lines) {
 			for(int i = 1; i < p.getNumPoints(); i++) {
-				var x1 = p.getPointAt(i).getX();
-				var y1 = p.getPointAt(i).getY();
-				var x2 = p.getPointAt(i-1).getX();
-				var y2 = p.getPointAt(i-1).getY();
+				x1 = p.getPointAt(i).getX();
+				y1 = p.getPointAt(i).getY();
+				x2 = p.getPointAt(i-1).getX();
+				y2 = p.getPointAt(i-1).getY();
 				var currentline = p;
 				if (box.intersectsLine(x1, y1, x2, y2) == true) {
 					//currentline.selected = true;
@@ -193,14 +223,12 @@ public class MainPanel extends JPanel implements MouseListener, MouseMotionListe
 
 	@Override
 	public void mouseMoved(MouseEvent e) {
-		int x = e.getX();
-		int y = e.getY();
-		//System.out.println("Mouse moved at (" + x + "," + y + ")");
-		//TODO...
-		//loop through all your "dot" objects, ask each one if
-		//the current mouse x,y is contained in it
-		//then break out of the loop
-		setToolTipText("Mouse is at " + x + "," + y);
+		int mouseX = e.getX();
+		int mouseY = e.getY();
+		
+		double closestDistance = 4;
+		
+		setToolTipText("Mouse is at " + mouseX + "," + mouseY);
 	}
 
 }
