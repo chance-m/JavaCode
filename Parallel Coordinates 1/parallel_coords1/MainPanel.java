@@ -34,6 +34,7 @@ public class MainPanel extends JPanel implements MouseListener, MouseMotionListe
 	private boolean lineSwitch;
 	double x1, x2, y1, y2;
 	double lineX1, lineX2, lineY1, lineY2;
+	HyrumPolyline closestLine;
 	
 
 	public MainPanel() {
@@ -46,7 +47,8 @@ public class MainPanel extends JPanel implements MouseListener, MouseMotionListe
 		box = new Rectangle();
 		transparentGreen = new Color(0,255,0,50);
 		transparentBlack = new Color(0,0,0,(int) 0.4);
-		setLinePoints();
+		closestLine = new HyrumPolyline();
+		
 	}
 
 	public void setAxes(List<Axis> ax, int count) {
@@ -82,6 +84,7 @@ public class MainPanel extends JPanel implements MouseListener, MouseMotionListe
 				lines.add(line);
 			}
 		}
+		setLinePoints();
 	}
 
 	@Override
@@ -96,9 +99,8 @@ public class MainPanel extends JPanel implements MouseListener, MouseMotionListe
 		//	draw blank background
 		g.setColor(Color.WHITE);
 		g.fillRect(0, 0, getWidth(), getHeight());
-
-		
 		for (HyrumPolyline p : lines) {
+			
 			if (p.select == LineSelector.DEFAULT 
 					) {
 				g.setColor(Color.BLACK);
@@ -111,7 +113,6 @@ public class MainPanel extends JPanel implements MouseListener, MouseMotionListe
 					g.setColor(Color.black);
 					p.draw(g);
 				}
-				
 			} else if (p.select == LineSelector.UNSELECTED) {
 				if (lineSwitch == true) {
 					g.setColor(Color.lightGray);
@@ -120,9 +121,16 @@ public class MainPanel extends JPanel implements MouseListener, MouseMotionListe
 					g.setColor(Color.black);
 					p.draw(g);
 				}
-//				g.setColor(Color.magenta);
-//				p.draw(g);
-				
+			}
+			
+			if (p.highLighted == true) {
+				g.setStroke(new BasicStroke(10));
+				g.setColor(Color.cyan);
+				p.draw(g);
+				System.out.println("I AM MAKING LINES THICC");
+			} else {
+				g.setColor(Color.black);
+				g.setStroke(new BasicStroke(0));
 			}
 		}
 		if (axes != null) {
@@ -134,6 +142,7 @@ public class MainPanel extends JPanel implements MouseListener, MouseMotionListe
 		((Graphics2D) g1).fill(box);
 		g1.setColor(Color.BLUE);
 		((Graphics2D) g1).draw(box);
+		
 	}
 	@Override
 	public void mouseClicked(MouseEvent e) {
@@ -162,6 +171,8 @@ public class MainPanel extends JPanel implements MouseListener, MouseMotionListe
 				lineY1 = p.getPointAt(i).getY();
 				lineX2 = p.getPointAt(i-1).getX();
 				lineY2 = p.getPointAt(i-1).getY();
+				System.out.println("line x1: " + lineX1 + " line y1: " + lineY1 + " line x2: " + lineX2 + " line y2: " + lineY2 );
+				
 			}
 		}
 	}
@@ -226,8 +237,23 @@ public class MainPanel extends JPanel implements MouseListener, MouseMotionListe
 		int mouseX = e.getX();
 		int mouseY = e.getY();
 		
-		double closestDistance = 4;
-		
+		double closestDistance = 2;
+		for (HyrumPolyline p : lines) {
+			//System.out.println("line x1: " + lineX1 + " line y1: " + lineY1 + " line x2: " + lineX2 + " line y2: " + lineY2 + " MOUSE POINTS: " + mouseX + ", " + mouseY);
+			for (int i = 1; i < p.getNumPoints(); i++) {
+//				if (p.getPointAt(i-1) < e.getPoint() < p.getPointAt(i)) {
+//					
+//				}
+			}
+			double dist = Line2D.ptLineDist(lineX1, lineY1, lineX2, lineY2, mouseX, mouseY);
+			if (dist < closestDistance ) {
+				//closestLine = p;
+				//closestDistance = dist;
+				p.highLighted = true;
+				System.out.println("I am calculating closest distance");
+			}
+		}
+		repaint();
 		setToolTipText("Mouse is at " + mouseX + "," + mouseY);
 	}
 
