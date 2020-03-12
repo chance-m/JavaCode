@@ -37,6 +37,7 @@ public class HyrumPolyline {
 	public boolean selected;
 	public LineSelector select;
 	public boolean highLighted;
+	public boolean keep;
 
 	public HyrumPolyline() {
 		polygon = new GeneralPath(GeneralPath.WIND_EVEN_ODD);
@@ -44,6 +45,7 @@ public class HyrumPolyline {
 		selected = true;
 		select = LineSelector.DEFAULT;
 		highLighted = false;
+		keep = false;
 	}
 
 	public HyrumPolyline(HyrumPolyline hp) {
