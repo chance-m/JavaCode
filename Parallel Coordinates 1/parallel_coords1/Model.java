@@ -14,6 +14,7 @@ public class Model {
 	private String dbName, /*tableName,*/ driver, protocol;
 	private Connection conn;
 	private boolean badConnection;
+	static String toolTip;
 
 	public Model() {
 		connectToDatabase();
@@ -124,6 +125,7 @@ public class Model {
 							String col = rs.getString("COLUMN_NAME");
 							String type = rs.getString("TYPE_NAME");
 							System.out.println("col=" + col + "; type="+type);
+							toolTip = "col=" + col + "; type="+type;
 							result.add(new Axis(col, type));
 						}
 					}
@@ -177,5 +179,8 @@ public class Model {
 		return rows;
 	}
 
+	public static String getToolTip() {
+		return toolTip;
+	}
 
 }

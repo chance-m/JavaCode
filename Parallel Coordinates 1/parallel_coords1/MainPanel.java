@@ -274,6 +274,7 @@ public class MainPanel extends JPanel implements MouseListener, MouseMotionListe
 				//System.out.println("line x1: " + lineX1 + " line y1: " + lineY1 + " line x2: " + lineX2 + " line y2: " + lineY2 );
 				if (lineX2 < mouseX && mouseX < lineX1) {
 					dist = Line2D.ptLineDist(lineX1, lineY1, lineX2, lineY2, mouseX, mouseY);
+					setToolTipText(Model.getToolTip());
 				}
 				if (dist < closestDistance) {
 					p.highLighted = true;
@@ -283,7 +284,7 @@ public class MainPanel extends JPanel implements MouseListener, MouseMotionListe
 			}
 		}
 		repaint();
-		setToolTipText("Mouse is at " + mouseX + "," + mouseY);
+		
 	}
 
 }

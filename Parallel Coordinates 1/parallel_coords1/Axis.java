@@ -89,6 +89,7 @@ public class Axis {
 		Map<String, Double> map = new HashMap<String, Double>();
 		for (Object v : values) {
 			//set all values to fractions between zero and 1
+			System.out.println("TEST: " + v);
 			if (dataType == DataType.NUMERIC) {
 				normalizedValues.add((Double)v);
 			} else {
